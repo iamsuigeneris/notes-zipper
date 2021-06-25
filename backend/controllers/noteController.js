@@ -1,11 +1,8 @@
 const asyncHandler = require("express-async-handler")
 const Note = require("../models/noteModel")
 
-const getNotes = asyncHandler(async (req, res) => {
-    const notes = await Note.find({ user: req.user._id})
-    res.json(notes)
-})
 
+// Create Note
 const createNote = asyncHandler(async (req, res) => {
     const { title, content, category } = req.body
 
@@ -18,6 +15,14 @@ const createNote = asyncHandler(async (req, res) => {
         res.status(201).json(creatednote)
     }
 })
+
+// Get Notes
+const getNotes = asyncHandler(async (req, res) => {
+    const notes = await Note.find({ user: req.user._id })
+    res.json(notes)
+})
+
+// Get single Note
 const getNoteById = asyncHandler(async (req, res) => {
     const note = await Note.findById(req.params.id)
 
@@ -28,6 +33,7 @@ const getNoteById = asyncHandler(async (req, res) => {
     }  
 })
 
+// Update Note
 const updateNote = asyncHandler(async (req, res) => {
     const { title, content, category } = req.body;
 
@@ -51,6 +57,7 @@ const updateNote = asyncHandler(async (req, res) => {
     }
 });
 
+// Delete Note
 const deleteNote = asyncHandler(async (req, res) => {
     const note = await Note.findById(req.params.id)
 
@@ -66,4 +73,5 @@ const deleteNote = asyncHandler(async (req, res) => {
         throw new Error("Note not found");
     }
 })
+
 module.exports = { getNotes, createNote, getNoteById, updateNote, deleteNote }
