@@ -1,24 +1,21 @@
-import React, { useEffect} from 'react'
-import { Button, Card, Badge, Accordion } from 'react-bootstrap';
-import { Link } from 'react-router-dom'
+import React, { useEffect } from "react";
+import { Accordion, Badge, Button, Card } from "react-bootstrap";
+import MainScreen from "../../../MainScreen";
+import { Link,useHistory } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
-import MainScreen from '../../../MainScreen';
-import {useDispatch, useSelector} from 'react-redux'
-import { deleteNoteAction, listNotes } from '../../../../actions/notesActions';
-import Loading from "../../../Loading"
-import ErrorMessage from "../../../ErrorMessage"
-// import axios from 'axios'
+import { useDispatch, useSelector } from "react-redux";
+import { deleteNoteAction, listNotes } from "../../../../actions/notesActions";
+import Loading from "../../../Loading";
+import ErrorMessage from "../../../ErrorMessage";
 
-function MyNotes({ history, search }) {
+function MyNotes({ search }) {
   const dispatch = useDispatch();
 
   const noteList = useSelector((state) => state.noteList);
   const { loading, error, notes } = noteList;
 
-  // const filteredNotes = notes.filter((note) =>
-  //   note.title.toLowerCase().includes(search.toLowerCase())
-  // );
+  const history = useHistory()
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -133,4 +130,4 @@ function MyNotes({ history, search }) {
   );
 }
 
-export default MyNotes
+export default MyNotes;

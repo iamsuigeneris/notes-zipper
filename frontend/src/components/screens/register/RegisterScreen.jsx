@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { Form, Button, Row, Col } from "react-bootstrap";
 // import axios from "axios";
 import Loading from "../../Loading";
@@ -25,25 +25,10 @@ const RegisterScreen = ({history}) => {
   const userRegister = useSelector((state) => state.userRegister)
   const { loading, error, userInfo } = userRegister
 
-  useEffect(() => {
-    if (userInfo) {
-      history.push("/mynotes")
-    }
-  },[history, userInfo])
-
- const submitHandler = async (e) => {
-   e.preventDefault();
-   
-   if (password !== confirmpassword) {
-     setEmail("Please do not match")
-   } else {
-     dispatch(register(name, email, password,pic))
-   }
-
-
-  };
   const postDetails = (pics) => {
-    if (!pics) {
+    if (
+      pics === "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
+    ){
       return setPicMessage("Please select an Image")
     }
     setPicMessage(null)
@@ -68,6 +53,21 @@ const RegisterScreen = ({history}) => {
         return setPicMessage("Please Select an Image");
     }
   }
+    useEffect(() => {
+      if (userInfo) {
+        history.push("/");
+      }
+    }, [history, userInfo]);
+
+   const submitHandler = async (e) => {
+     e.preventDefault();
+
+     if (password !== confirmpassword) {
+       setEmail("Please do not match");
+     } else {
+       dispatch(register(name, email, password, pic));
+     }
+   };
   return (
     <MainScreen title='REGISTER'>
       <div className='loginContainer'>
